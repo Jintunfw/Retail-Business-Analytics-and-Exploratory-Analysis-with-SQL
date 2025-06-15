@@ -1,0 +1,324 @@
+-- Create tables for a retail industry mock dataset
+-- Dimension Tables
+CREATE TABLE products (
+    product_id INT PRIMARY KEY,
+    product_name TEXT,
+    category TEXT,
+    price REAL
+);
+
+CREATE TABLE customers (
+    customer_id INT PRIMARY KEY,
+    customer_name TEXT,
+    email TEXT,
+    city TEXT
+);
+
+CREATE TABLE employees (
+    employee_id INT PRIMARY KEY,
+    employee_name TEXT,
+    position TEXT,
+    store_id INT
+);
+
+CREATE TABLE stores (
+    store_id INT PRIMARY KEY,
+    store_name TEXT,
+    location TEXT
+);
+
+-- Fact Table
+CREATE TABLE transactions (
+    transaction_id INT PRIMARY KEY,
+    customer_id INT,
+    employee_id INT,
+    product_id INT,
+    store_id INT,
+    transaction_date TEXT,
+    quantity INT,
+    total_amount REAL,
+    FOREIGN KEY (customer_id) REFERENCES customers(customer_id),
+    FOREIGN KEY (employee_id) REFERENCES employees(employee_id),
+    FOREIGN KEY (product_id) REFERENCES products(product_id),
+    FOREIGN KEY (store_id) REFERENCES stores(store_id)
+);
+
+-- Insert data into products
+INSERT INTO products (product_id, product_name, category, price) VALUES
+(1, 'Laptop', 'Electronics', 1000),
+(2, 'Headphones', 'Electronics', 150),
+(3, 'Office Chair', 'Furniture', 200),
+(4, 'Desk', 'Furniture', 300),
+(5, 'Coffee Maker', 'Appliances', 80),
+(6, 'Blender', 'Appliances', 50),
+(7, 'Sneakers', 'Footwear', 120),
+(8, 'T-shirt', 'Clothing', 25),
+(9, 'Jeans', 'Clothing', 60),
+(10, 'Jacket', 'Clothing', 100);
+
+-- Insert data into customers
+INSERT INTO customers (customer_id, customer_name, email, city) VALUES
+(1, 'Alice', 'alice@example.com', 'New York'),
+(2, 'Bob', 'bob@example.com', 'Los Angeles'),
+(3, 'Charlie', 'charlie@example.com', 'Chicago'),
+(4, 'David', 'david@example.com', 'Houston'),
+(5, 'Eve', 'eve@example.com', 'Phoenix');
+
+-- Insert data into employees
+INSERT INTO employees (employee_id, employee_name, position, store_id) VALUES
+(1, 'Jane', 'Manager', 1),
+(2, 'John', 'Sales Associate', 1),
+(3, 'Emily', 'Cashier', 2),
+(4, 'Mark', 'Stock Clerk', 3),
+(5, 'Sarah', 'Supervisor', 3);
+
+-- Insert data into stores
+INSERT INTO stores (store_id, store_name, location) VALUES
+(1, 'Downtown Store', 'New York'),
+(2, 'Mall Store', 'Los Angeles'),
+(3, 'Suburban Store', 'Chicago');
+
+-- Insert mock transaction data
+INSERT INTO transactions (transaction_id, customer_id, employee_id, product_id, store_id, transaction_date, quantity, total_amount) VALUES
+-- January transactions
+(1, 1, 1, 1, 1, '2024-01-05', 1, 1000.00),
+(2, 2, 2, 2, 1, '2024-01-08', 2, 300.00),
+(3, 3, 3, 8, 2, '2024-01-10', 3, 75.00),
+(4, 4, 4, 4, 3, '2024-01-12', 1, 300.00),
+(5, 5, 5, 5, 3, '2024-01-15', 1, 80.00),
+(6, 1, 2, 7, 1, '2024-01-18', 1, 120.00),
+(7, 2, 1, 3, 1, '2024-01-20', 1, 200.00),
+(8, 3, 3, 9, 2, '2024-01-22', 2, 120.00),
+(9, 4, 4, 6, 3, '2024-01-25', 1, 50.00),
+(10, 5, 5, 10, 3, '2024-01-28', 1, 100.00),
+
+-- February transactions
+(11, 1, 2, 2, 1, '2024-02-02', 1, 150.00),
+(12, 2, 1, 8, 1, '2024-02-05', 4, 100.00),
+(13, 3, 3, 7, 2, '2024-02-08', 2, 240.00),
+(14, 4, 4, 1, 3, '2024-02-10', 1, 1000.00),
+(15, 5, 5, 9, 3, '2024-02-12', 1, 60.00),
+(16, 1, 1, 5, 1, '2024-02-15', 2, 160.00),
+(17, 2, 2, 4, 1, '2024-02-18', 1, 300.00),
+(18, 3, 3, 6, 2, '2024-02-20', 3, 150.00),
+(19, 4, 4, 3, 3, '2024-02-22', 1, 200.00),
+(20, 5, 5, 8, 3, '2024-02-25', 2, 50.00),
+
+-- March transactions
+(21, 1, 1, 10, 1, '2024-03-01', 1, 100.00),
+(22, 2, 2, 7, 1, '2024-03-03', 1, 120.00),
+(23, 3, 3, 1, 2, '2024-03-05', 1, 1000.00),
+(24, 4, 4, 2, 3, '2024-03-08', 2, 300.00),
+(25, 5, 5, 4, 3, '2024-03-10', 1, 300.00),
+(26, 1, 2, 6, 1, '2024-03-12', 1, 50.00),
+(27, 2, 1, 9, 1, '2024-03-15', 3, 180.00),
+(28, 3, 3, 5, 2, '2024-03-18', 1, 80.00),
+(29, 4, 4, 8, 3, '2024-03-20', 5, 125.00),
+(30, 5, 5, 3, 3, '2024-03-22', 2, 400.00),
+
+-- April transactions
+(31, 1, 1, 7, 1, '2024-04-02', 2, 240.00),
+(32, 2, 2, 1, 1, '2024-04-05', 1, 1000.00),
+(33, 3, 3, 9, 2, '2024-04-08', 1, 60.00),
+(34, 4, 4, 5, 3, '2024-04-10', 2, 160.00),
+(35, 5, 5, 6, 3, '2024-04-12', 1, 50.00),
+(36, 1, 2, 10, 1, '2024-04-15', 1, 100.00),
+(37, 2, 1, 2, 1, '2024-04-18', 3, 450.00),
+(38, 3, 3, 4, 2, '2024-04-20', 1, 300.00),
+(39, 4, 4, 8, 3, '2024-04-22', 2, 50.00),
+(40, 5, 5, 7, 3, '2024-04-25', 1, 120.00),
+
+-- May transactions
+(41, 1, 2, 3, 1, '2024-05-01', 1, 200.00),
+(42, 2, 1, 6, 1, '2024-05-03', 2, 100.00),
+(43, 3, 3, 1, 2, '2024-05-05', 1, 1000.00),
+(44, 4, 4, 9, 3, '2024-05-08', 3, 180.00),
+(45, 5, 5, 2, 3, '2024-05-10', 1, 150.00),
+(46, 1, 1, 8, 1, '2024-05-12', 4, 100.00),
+(47, 2, 2, 5, 1, '2024-05-15', 1, 80.00),
+(48, 3, 3, 10, 2, '2024-05-18', 2, 200.00),
+(49, 4, 4, 7, 3, '2024-05-20', 1, 120.00),
+(50, 5, 5, 4, 3, '2024-05-22', 1, 300.00),
+
+-- June transactions
+(51, 1, 1, 6, 1, '2024-06-02', 3, 150.00),
+(52, 2, 2, 9, 1, '2024-06-05', 2, 120.00),
+(53, 3, 3, 2, 2, '2024-06-08', 1, 150.00),
+(54, 4, 4, 1, 3, '2024-06-10', 1, 1000.00),
+(55, 5, 5, 8, 3, '2024-06-12', 3, 75.00),
+(56, 1, 2, 3, 1, '2024-06-15', 2, 400.00),
+(57, 2, 1, 7, 1, '2024-06-18', 1, 120.00),
+(58, 3, 3, 5, 2, '2024-06-20', 2, 160.00),
+(59, 4, 4, 10, 3, '2024-06-22', 1, 100.00),
+(60, 5, 5, 4, 3, '2024-06-25', 1, 300.00),
+
+-- July transactions  
+(61, 1, 2, 1, 1, '2024-07-01', 1, 1000.00),
+(62, 2, 1, 8, 1, '2024-07-03', 2, 50.00),
+(63, 3, 3, 7, 2, '2024-07-05', 1, 120.00),
+(64, 4, 4, 6, 3, '2024-07-08', 2, 100.00),
+(65, 5, 5, 9, 3, '2024-07-10', 1, 60.00),
+(66, 1, 1, 2, 1, '2024-07-12', 2, 300.00),
+(67, 2, 2, 5, 1, '2024-07-15', 1, 80.00),
+(68, 3, 3, 3, 2, '2024-07-18', 1, 200.00),
+(69, 4, 4, 4, 3, '2024-07-20', 1, 300.00),
+(70, 5, 5, 10, 3, '2024-07-22', 2, 200.00),
+
+-- August transactions
+(71, 1, 1, 7, 1, '2024-08-02', 1, 120.00),
+(72, 2, 2, 1, 1, '2024-08-05', 1, 1000.00),
+(73, 3, 3, 8, 2, '2024-08-08', 4, 100.00),
+(74, 4, 4, 2, 3, '2024-08-10', 1, 150.00),
+(75, 5, 5, 6, 3, '2024-08-12', 1, 50.00),
+(76, 1, 2, 9, 1, '2024-08-15', 2, 120.00),
+(77, 2, 1, 3, 1, '2024-08-18', 1, 200.00),
+(78, 3, 3, 5, 2, '2024-08-20', 3, 240.00),
+(79, 4, 4, 10, 3, '2024-08-22', 1, 100.00),
+(80, 5, 5, 4, 3, '2024-08-25', 2, 600.00),
+
+-- September transactions
+(81, 1, 2, 6, 1, '2024-09-01', 2, 100.00),
+(82, 2, 1, 7, 1, '2024-09-03', 1, 120.00),
+(83, 3, 3, 1, 2, '2024-09-05', 1, 1000.00),
+(84, 4, 4, 8, 3, '2024-09-08', 3, 75.00),
+(85, 5, 5, 2, 3, '2024-09-10', 2, 300.00),
+(86, 1, 1, 9, 1, '2024-09-12', 1, 60.00),
+(87, 2, 2, 5, 1, '2024-09-15', 2, 160.00),
+(88, 3, 3, 4, 2, '2024-09-18', 1, 300.00),
+(89, 4, 4, 3, 3, '2024-09-20', 2, 400.00),
+(90, 5, 5, 10, 3, '2024-09-22', 1, 100.00),
+
+-- October transactions
+(91, 1, 1, 1, 1, '2024-10-02', 1, 1000.00),
+(92, 2, 2, 6, 1, '2024-10-05', 1, 50.00),
+(93, 3, 3, 7, 2, '2024-10-08', 2, 240.00),
+(94, 4, 4, 9, 3, '2024-10-10', 1, 60.00),
+(95, 5, 5, 8, 3, '2024-10-12', 2, 50.00),
+(96, 1, 2, 2, 1, '2024-10-15', 1, 150.00),
+(97, 2, 1, 5, 1, '2024-10-18', 1, 80.00),
+(98, 3, 3, 3, 2, '2024-10-20', 1, 200.00),
+(99, 4, 4, 4, 3, '2024-10-22', 1, 300.00),
+(100, 5, 5, 10, 3, '2024-10-25', 1, 100.00);
+
+.mode column
+.header on
+
+SELECT * FROM products;
+SELECT * FROM customers;
+SELECT * FROM employees;
+SELECT * FROM stores;
+SELECT * FROM transactions;
+
+-- top spender across all stores
+SELECT customer_name,
+sum(total_amount) as total_spent
+FROM transactions as t 
+JOIN customers as c ON t.customer_id = c.customer_id
+GROUP BY customer_name
+-- Alice is the top spending customer
+
+--How many items are sold across all stores
+SELECT sum(quantity) as total_quantity
+FROM sales;
+
+-- What’s the average selling prices
+SELECT avg(price) as average_prices
+FROM sales;
+    
+-- Create virtual table for new transactions table
+CREATE VIEW sales as
+SELECT
+transaction_date,
+customer_name,
+product_name,
+price,
+quantity,
+total_amount,
+store_name,
+employee_name
+FROM transactions as t 
+JOIN customers as c ON t.customer_id = c.customer_id
+JOIN products as p ON t.product_id = p.product_id
+JOIN stores as s ON t.store_id = s.store_id
+JOIN employees as e ON t.employee_id = e.employee_id;
+
+-- Who is the best performer based on sales created
+SELECT 
+employee_name,
+SUM(total_amount) AS total_revenue
+FROM sales
+GROUP BY employee_name
+ORDER BY total_revenue DESC;
+-- Emily
+
+-- What is the top 3 best selling products
+SELECT
+product_name,
+SUM(total_amount) AS total_sales
+FROM sales
+GROUP BY product_name
+ORDER BY total_sales DESC
+LIMIT 3;
+
+-- What is the bottom 3 products by sales
+SELECT
+product_name,
+SUM(total_amount) AS total_sales
+FROM sales
+GROUP BY product_name
+ORDER BY total_sales
+LIMIT 3;
+
+-- Which store generates the most revenue
+SELECT
+store_name,
+SUM(total_amount) AS total_revenue
+FROM sales
+GROUP BY store_name
+ORDER BY total_revenue DESC;
+
+--How much revenue generate in each category of product
+SELECT 
+category,
+SUM(total_amount) AS total_revenue
+FROM transactions as t 
+JOIN customers as c ON t.customer_id = c.customer_id
+JOIN products as p ON t.product_id = p.product_id
+JOIN stores as s ON t.store_id = s.store_id
+JOIN employees as e ON t.employee_id = e.employee_id
+GROUP BY category
+ORDER BY total_revenue DESC;
+
+--Determine the first and last order date
+SELECT 
+MAX(transaction_date) as last_order_date, 
+MIN(transaction_date) as first_order_date
+FROM sales;
+
+--segment each transaction based on total amount
+SELECT
+transaction_date,
+customer_name,
+total_amount,
+CASE WHEN total_amount < 100 THEN 'regular' 
+WHEN total_amount BETWEEN 100 AND 300 THEN 'privilege'
+ELSE 'VIP' END as 'order_segment'
+FROM sales;
+
+
+--count of segmentation for further analysis
+WITH segment AS (SELECT 
+    transaction_date,
+    customer_name,
+    total_amount,
+    CASE WHEN total_amount < 100 THEN 'regular' 
+    WHEN total_amount BETWEEN 100 AND 300 THEN 'privilege'
+    ELSE 'VIP' END as segment
+    FROM sales)
+SELECT segment, COUNT(*) AS segment_count
+FROM segment
+GROUP BY segment
+
+
+
+
