@@ -6,11 +6,7 @@ This project demonstrates a foundational approach to retail sales data analysis 
 
 - [Project Overview](#project-overview)
 - [Dataset Schema](#dataset-schema)
-- [SQL Script Structure](#sql-script-structure)
 - [Key Analyses & Insights](#key-analyses--insights)
-- [How to Use](#how-to-use)
-- [Technologies Used](#technologies-used)
-- [Future Enhancements](#future-enhancements)
 
 ## Project Overview
 
